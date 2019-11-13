@@ -36,4 +36,10 @@ class BeanFactoryUtilsTest {
     void getInjectedConstructor_IfInjectedConstructorIsEmpty_returnNull() {
         assertNull(BeanFactoryUtils.getInjectedConstructor(JdbcQuestionRepository.class));
     }
+
+    @Test
+    @DisplayName("해당하는 클래스에 대한 BeanDefinition을 찾아준다.")
+    void findConcreteDefinition() {
+        // TODO: 19. 11. 13. 테스트 추가
+    }
 }

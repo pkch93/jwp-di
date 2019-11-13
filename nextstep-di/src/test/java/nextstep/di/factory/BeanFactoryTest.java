@@ -7,18 +7,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class BeanFactoryTest {
 
-    private BeanFactory beanFactory;
+    private BeanFactory2 beanFactory;
 
     @BeforeEach
-    void setup() {
-        Set<Class<?>> preInstantiateClazz = BeanScanner.scan("nextstep.di.factory.example");
-        beanFactory = new BeanFactory(preInstantiateClazz);
+    void setup() throws InvocationTargetException, IllegalAccessException {
+//        Set<Class<?>> preInstantiateClazz = BeanScanner.scan("nextstep.di.factory.example");
+        Set<Class<?>> preInstantiateClazz = BeanScanner.scanConfiguration("nextstep.di.factory.example.config");
+        beanFactory = new BeanFactory2(preInstantiateClazz);
         beanFactory.initialize();
     }
 
@@ -41,5 +43,11 @@ class BeanFactoryTest {
 
         assertNotNull(testService);
         assertNotNull(testService.getMyQnaService());
+    }
+
+    @Test
+    @DisplayName("Configuration 클래스를 통해 bean을 등록한다.")
+    void beanCreationByConfiguration() {
+        // TODO: 19. 11. 13. datasource 이용하여 테스트 작성
     }
 }
